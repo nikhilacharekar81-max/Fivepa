@@ -195,9 +195,9 @@ export const SiteFeeSettingsModule: React.FC<SiteFeeSettingsModuleProps> = ({
               <div className="p-2 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-700">
                 <Settings className="w-5 h-5" />
               </div>
-              <h2 className="text-xl font-extrabold text-slate-900">20. Site & Fee Settings</h2>
+              <h2 className="text-xl font-bold text-fiverr-dark">20. Site & Fee Settings</h2>
             </div>
-            <p className="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs text-fiverr-muted mt-1 max-w-2xl leading-relaxed">
               Configure marketplace monetization rates, mandatory double-entry escrow hold duration, buyer checkout fees, currency, and operational governance policies.
             </p>
           </div>
@@ -205,7 +205,7 @@ export const SiteFeeSettingsModule: React.FC<SiteFeeSettingsModuleProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={handleResetDefaults}
-              className="px-3.5 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl border border-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3.5 py-2.5 bg-slate-50 hover:bg-slate-100 text-fiverr-dark rounded-xl border border-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Undo2 className="w-3.5 h-3.5" />
               <span>Reset Defaults</span>
@@ -251,21 +251,21 @@ export const SiteFeeSettingsModule: React.FC<SiteFeeSettingsModuleProps> = ({
         {/* Live KPI Quick Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6">
           <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Take Rate</span>
-            <span className="text-lg font-black text-emerald-600 mt-0.5 block">{settings.freelancerCommissionRate}%</span>
-            <span className="text-[10px] text-slate-500">Freelancer Fee</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-fiverr-muted block">Take Rate</span>
+            <span className="text-lg font-bold text-emerald-600 mt-0.5 block">{settings.freelancerCommissionRate}%</span>
+            <span className="text-[10px] text-fiverr-muted">Freelancer Fee</span>
           </div>
 
           <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Buyer Fee</span>
-            <span className="text-lg font-black text-purple-600 mt-0.5 block">{settings.buyerProcessingFeeRate}%</span>
-            <span className="text-[10px] text-slate-500">Checkout Surcharge</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-fiverr-muted block">Buyer Fee</span>
+            <span className="text-lg font-bold text-purple-600 mt-0.5 block">{settings.buyerProcessingFeeRate}%</span>
+            <span className="text-[10px] text-fiverr-muted">Checkout Surcharge</span>
           </div>
 
           <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Escrow Hold</span>
-            <span className="text-lg font-black text-blue-600 mt-0.5 block">{settings.escrowHoldDays} Days</span>
-            <span className="text-[10px] text-slate-500">Vault Protection</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-fiverr-muted block">Escrow Hold</span>
+            <span className="text-lg font-bold text-blue-600 mt-0.5 block">{settings.escrowHoldDays} Days</span>
+            <span className="text-[10px] text-fiverr-muted">Vault Protection</span>
           </div>
 
           <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
@@ -297,7 +297,7 @@ export const SiteFeeSettingsModule: React.FC<SiteFeeSettingsModuleProps> = ({
           {/* Card 1: Platform Take Rates & Commission */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-5 shadow-xs">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="text-sm font-bold text-fiverr-dark flex items-center gap-2">
                 <Percent className="w-4 h-4 text-emerald-600" />
                 <span>1. Platform Take Rates & Commissions</span>
               </h3>

@@ -933,6 +933,8 @@ interface Message {
   senderName: string;
   text: string;
   timestamp: string;
+  type?: 'message' | 'system' | 'file';
+  fileInfo?: { name: string; size: string; url: string };
 }
 
 interface UserEmail {
@@ -1001,11 +1003,12 @@ function notifyUserOnAdminAction(user: User, action: 'suspended' | 'restricted' 
   userEmails.unshift(newEmail);
 
   // 2. Add System Chat Message into User's Support Thread
+  // 2. Add System Chat Message into User's Support Thread
   const supportOrderId = `support_admin_${user.id}`;
   const newChatMsg: Message = {
     id: 'msg_' + Date.now() + Math.random().toString(36).substring(2, 5),
     orderId: supportOrderId,
-    senderId: 'user_admin',
+    senderId: 'user-admin',
     senderName: 'WorkSphere Admin & Support Desk',
     text: chatText,
     timestamp: timeShort
@@ -1044,468 +1047,119 @@ const DEV_ADMIN_PASSWORD_HASH = bcrypt.hashSync('adminpassword123', 10);
 // Initial Data Seeds
 let users: User[] = [
   {
-    id: 'user_1',
+    id: 'user-1',
     name: 'Elena Rostova',
     email: 'elena@example.com',
     role: 'user',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
-    title: 'Senior Full-Stack & UI/UX Architect',
+    title: 'Full Stack Dev',
     rating: 4.9,
     reviewsCount: 142,
-    hourlyRate: 85,
-    earned: 48500,
-    completedJobs: 165,
-    bio: 'Product engineer building scalable SaaS apps.',
-    skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+    hourlyRate: 50,
+    earned: 15000,
+    completedJobs: 45,
+    bio: 'Expert in React/Node.',
+    skills: ['React', 'Node.js'],
     status: 'active',
     verified: true,
-    walletBalance: 4250,
-    createdAt: '2025-01-15',
-    password: IS_PROD ? undefined : DEV_DEMO_PASSWORD_HASH
+    walletBalance: 1000,
+    createdAt: '2026-01-01',
+    password: DEV_DEMO_PASSWORD_HASH,
+    sessionVersion: 1,
+    knownDevices: ['dev_default_session']
   },
   {
-    id: 'user_2',
+    id: 'user-2',
     name: 'Marcus Vance',
     email: 'marcus@example.com',
     role: 'user',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-    title: 'VP of Product at NexusTech',
-    rating: 5.0,
-    reviewsCount: 28,
-    hourlyRate: 0,
-    earned: 0,
-    completedJobs: 0,
-    bio: 'Looking for elite freelance developers.',
-    skills: ['Product Management', 'Startup Growth'],
+    title: 'Creative Designer',
+    rating: 4.8,
+    reviewsCount: 88,
+    hourlyRate: 40,
+    earned: 8000,
+    completedJobs: 30,
+    bio: 'UI/UX specialist.',
+    skills: ['Figma', 'CSS'],
     status: 'active',
     verified: true,
-    walletBalance: 12000,
-    createdAt: '2025-02-01',
-    password: IS_PROD ? undefined : DEV_DEMO_PASSWORD_HASH
+    walletBalance: 500,
+    createdAt: '2026-02-01',
+    password: DEV_DEMO_PASSWORD_HASH,
+    sessionVersion: 1,
+    knownDevices: ['dev_default_session']
   },
   {
-    id: 'user_admin',
+    id: 'user-admin',
     name: 'Admin Chief',
     email: 'admin@workperhour.com',
     role: 'super_admin',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop',
-    title: 'Platform Super Administrator',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    title: 'Admin',
     rating: 5.0,
     reviewsCount: 0,
     hourlyRate: 0,
     earned: 0,
     completedJobs: 0,
-    bio: 'Super Admin managing marketplace integrity.',
-    skills: ['Platform Operations', 'Security'],
+    bio: 'Platform Admin',
+    skills: [],
     status: 'active',
     verified: true,
     walletBalance: 0,
-    createdAt: '2025-01-01',
-    password: DEV_ADMIN_PASSWORD_HASH
-  },
-  {
-    id: 'user_bk',
-    name: 'Broadcast King',
-    username: 'broadcastking',
-    email: 'broadcastking@workperhour.com',
-    role: 'user',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
-    title: 'Professional Animator & Puppet Director',
-    rating: 4.9,
-    reviewsCount: 2840,
-    hourlyRate: 75,
-    earned: 62000,
-    completedJobs: 410,
-    bio: 'Award-winning video and puppet production specialist.',
-    skills: ['Video Production', 'Puppet Rigging', 'Voiceover', 'Animation'],
-    status: 'active',
-    verified: true,
-    walletBalance: 3450,
-    createdAt: '2025-01-10',
-    password: IS_PROD ? undefined : DEV_DEMO_PASSWORD_HASH
-  },
-  {
-    id: 'user_3',
-    name: 'Bushra Khan',
-    username: 'bushra',
-    email: 'bushra@workperhour.com',
-    role: 'user',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-    title: 'Senior SEO Strategist & Backlink Specialist',
-    rating: 5.0,
-    reviewsCount: 16,
-    hourlyRate: 60,
-    earned: 14200,
-    completedJobs: 88,
-    bio: 'High authority backlink building and organic SEO ranking.',
-    skills: ['SEO', 'Link Building', 'Ahrefs', 'Technical SEO'],
-    status: 'active',
-    verified: true,
-    walletBalance: 1850,
-    createdAt: '2025-02-15',
-    password: IS_PROD ? undefined : DEV_DEMO_PASSWORD_HASH
+    createdAt: '2026-01-01',
+    password: DEV_ADMIN_PASSWORD_HASH,
+    sessionVersion: 1,
+    knownDevices: ['dev_default_session']
   }
 ];
 
 let gigs: Gig[] = [
   {
-    id: 'gig_0',
-    freelancerId: 'user_bk',
-    freelancerName: 'Broadcast King',
-    freelancerUsername: 'broadcastking',
-    freelancerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
-    freelancerLevel: 'Top Rated ★★★',
-    title: 'Create an amazing promotional explainer video a puppet',
-    slug: 'create-an-amazing-promotional-explainer-video-a-puppet',
-    category: 'Design & Creative',
-    subcategory: 'Explainer Videos',
-    description: 'I will create a high quality 1080p promotional explainer video featuring a custom puppet character for your brand or business. Includes professional voiceover, sound effects, commercial rights, and unlimited revisions.',
-    price: 450,
-    deliveryDays: 3,
-    rating: 4.9,
-    reviewsCount: 2840,
-    image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=800&h=500&fit=crop',
-    status: 'published',
-    featured: true,
-    extras: [
-      { id: 'ext_1', title: 'Extra Fast 24-Hour Express Delivery', price: 100 },
-      { id: 'ext_2', title: 'Full Commercial & Broadcast License', price: 150 },
-      { id: 'ext_3', title: 'Additional 30 Seconds Animation', price: 200 },
-      { id: 'ext_4', title: 'Custom Background Music Track', price: 50 }
-    ]
-  },
-  {
-    id: 'gig_1',
-    freelancerId: 'user_1',
-    freelancerName: 'Jacob M.',
-    freelancerUsername: 'jacob_m',
-    freelancerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-    freelancerLevel: 'Top Rated ★★★',
-    title: 'I will seo backlinks high da authority link building service for google ranking',
-    slug: 'i-will-seo-backlinks-high-da-authority-link-building-service-for-google-ranking',
-    category: 'Development & IT',
-    subcategory: 'SEO & Link Building',
-    description: 'Get high DA authority backlinks and contextual link building to boost your Google rankings safely.',
-    price: 450,
-    deliveryDays: 5,
-    rating: 4.9,
-    reviewsCount: 1420,
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop',
-    status: 'published',
-    featured: true,
-    extras: [
-      { id: 'ext_5', title: 'Supercharge with 25 Extra High DA 70+ Backlinks', price: 200 },
-      { id: 'ext_6', title: 'Detailed PDF Indexing & Anchor Text Report', price: 50 }
-    ]
-  },
-  {
-    id: 'gig_2',
-    freelancerId: 'user_3',
-    freelancerName: 'BUSHRA',
-    freelancerUsername: 'bushra',
-    freelancerAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-    freelancerLevel: 'Level 2 ★★',
-    title: 'I will increase ahrefs domain rating dr 70 using high authority SEO backlinks',
-    slug: 'i-will-increase-ahrefs-domain-rating-dr-70-using-high-authority-seo-backlinks',
-    category: 'AI & Data',
-    subcategory: 'AI Integration',
-    description: 'Supercharge your domain rating with Ahrefs DR 70 guaranteed backlinks.',
-    price: 350,
-    deliveryDays: 3,
-    rating: 5.0,
-    reviewsCount: 16,
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=500&fit=crop',
-    status: 'published',
-    featured: false,
-    extras: [
-      { id: 'ext_7', title: 'Fast Track Processing (2 Days Delivery)', price: 150 },
-      { id: 'ext_8', title: 'Ahrefs & SEMrush SEO Competitor Comparison', price: 80 }
-    ]
-  },
-  {
-    id: 'gig_3',
-    freelancerId: 'user_1',
+    id: 'gig-1',
+    freelancerId: 'user-1',
     freelancerName: 'Elena Rostova',
     freelancerUsername: 'elena_rostova',
     freelancerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
-    freelancerLevel: 'Vetted Pro ★★★',
-    title: 'I will build a high performance full stack web app in react and node',
-    slug: 'i-will-build-a-high-performance-full-stack-web-app-in-react-and-node',
-    category: 'Development & IT',
-    subcategory: 'Full-Stack Development',
-    description: 'Custom full-stack web applications built with React 19, TypeScript, Express, and PostgreSQL.',
-    price: 950,
-    deliveryDays: 7,
-    rating: 5.0,
-    reviewsCount: 382,
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop',
+    freelancerLevel: 'Top Rated ★★★',
+    title: 'Promotional Puppet Video',
+    slug: 'promotional-puppet-video',
+    category: 'Video',
+    description: 'Puppet video creation.',
+    price: 450,
+    deliveryDays: 5,
+    rating: 4.9,
+    reviewsCount: 124,
+    image: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=500&fit=crop',
     status: 'published',
-    featured: true,
-    extras: [
-      { id: 'ext_9', title: 'Add Real-Time WebSockets Messaging System', price: 350 },
-      { id: 'ext_10', title: 'Stripe & Escrow Payment Gateway Integration', price: 400 },
-      { id: 'ext_11', title: 'Express Deployment to Cloud Hosting', price: 150 }
-    ]
-  }
-];
-
-let projects: Project[] = [
-  {
-    id: 'proj_1',
-    buyerId: 'user_2',
-    buyerName: 'Marcus Vance',
-    buyerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-    title: 'Looking for a React Native Expert to build an iOS/Android fintech mobile app',
-    category: 'Mobile Apps',
-    subcategory: 'React Native',
-    description: 'Launching a next-gen crypto & fiat savings wallet with biometric auth & Stripe.',
-    budgetMin: 3000,
-    budgetMax: 6000,
-    deadlineDays: 30,
-    proposalsCount: 4,
-    createdAt: '2026-10-01',
-    status: 'open',
     featured: true
   }
 ];
 
-let proposals: Proposal[] = [
-  {
-    id: 'prop_1',
-    projectId: 'proj_1',
-    freelancerId: 'user_1',
-    freelancerName: 'Elena Rostova',
-    freelancerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
-    freelancerTitle: 'Senior Full-Stack & UI/UX Architect',
-    coverLetter: 'Hi Marcus! I have built several secure fintech apps.',
-    bidAmount: 4500,
-    deliveryDays: 25,
-    createdAt: '2026-10-02',
-    status: 'pending'
-  }
-];
+
+
+
 
 let orders: Order[] = [
   {
-    id: 'ord_1',
-    title: 'I will build a high performance full stack web app in react and node',
-    buyerId: 'user_2',
-    sellerId: 'user_1',
-    gigId: 'gig_3',
-    sellerUsername: 'elena_rostova',
-    gigSlug: 'i-will-build-a-high-performance-full-stack-web-app-in-react-and-node',
-    serviceUrl: '/elena_rostova/i-will-build-a-high-performance-full-stack-web-app-in-react-and-node',
-    serviceTitle: 'I will build a high performance full stack web app in react and node',
-    amount: 950,
-    status: 'disputed',
-    createdAt: '2026-10-05',
-    dueDate: '2026-10-19',
-    requirements: 'Build user dashboard with dark mode, full-stack MVP, and PostgreSQL database integration.',
-    deliverables: 'Source code repository with React 19 frontend and Node.js REST API.',
-    deliverableFiles: [
-      { id: 'deliv_1', name: 'saas_mvp_build_v1.zip', size: '14.8 MB', url: '#', uploadedAt: '2026-10-07 11:20 AM' },
-      { id: 'deliv_2', name: 'api_documentation.pdf', size: '1.2 MB', url: '#', uploadedAt: '2026-10-07 11:22 AM' }
-    ],
-    revisions: [
-      { id: 'rev_1', requestedAt: '2026-10-07 01:15 PM', reason: 'Missing dark mode toggle in navigation bar and settings.', status: 'open' }
-    ],
-    adminNotes: 'Buyer filed formal dispute regarding dark theme. Elena states toggle was ready in PR #4. Under review.',
-    isMuted: false,
-    escrowProtectionStartDate: '2026-10-05',
-    escrowProtectionEndDate: '2026-10-19'
-  },
-  {
-    id: 'ord_bk',
-    title: 'Create an amazing promotional explainer video a puppet',
-    buyerId: 'user_2',
-    sellerId: 'user_bk',
-    gigId: 'gig_0',
-    sellerUsername: 'broadcastking',
-    gigSlug: 'create-an-amazing-promotional-explainer-video-a-puppet',
-    serviceUrl: '/broadcastking/create-an-amazing-promotional-explainer-video-a-puppet',
-    serviceTitle: 'Create an amazing promotional explainer video a puppet',
+    id: 'ws-1',
+    title: 'Puppet Video Production',
+    buyerId: 'user-2',
+    sellerId: 'user-1',
+    gigId: 'gig-1',
     amount: 450,
     status: 'in_progress',
-    createdAt: '2026-10-06',
-    dueDate: '2026-10-12',
-    requirements: '30-second puppet animation for mobile app launch. Professional voiceover and commercial rights included.',
-    deliverables: 'Full 1080p MP4 master video + raw audio WAV file.',
-    deliverableFiles: [
-      { id: 'deliv_3', name: 'puppet_rigging_preview.mp4', size: '8.4 MB', url: '#', uploadedAt: '2026-10-08 02:40 PM' }
-    ],
-    adminNotes: 'Puppet character model approved by Marcus. Final render underway.',
-    isMuted: false,
-    escrowProtectionStartDate: '2026-10-06',
-    escrowProtectionEndDate: '2026-10-20'
-  },
-  {
-    id: 'ord_bushra',
-    title: 'I will increase ahrefs domain rating dr 70 using high authority SEO backlinks',
-    buyerId: 'user_2',
-    sellerId: 'user_3',
-    gigId: 'gig_2',
-    sellerUsername: 'bushra',
-    gigSlug: 'i-will-increase-ahrefs-domain-rating-dr-70-using-high-authority-seo-backlinks',
-    serviceUrl: '/bushra/i-will-increase-ahrefs-domain-rating-dr-70-using-high-authority-seo-backlinks',
-    serviceTitle: 'I will increase ahrefs domain rating dr 70 using high authority SEO backlinks',
-    amount: 350,
-    status: 'delivered',
-    createdAt: '2026-10-07',
-    dueDate: '2026-10-14',
-    requirements: 'Target domain ranking boost for SaaS landing page with 25 contextual backlinks.',
-    deliverables: 'Comprehensive Ahrefs DR 70 indexing report and verified live URLs.',
-    deliverableFiles: [
-      { id: 'deliv_4', name: 'ahrefs_dr70_verified_backlinks.pdf', size: '2.4 MB', url: '#', uploadedAt: '2026-10-08 04:30 PM' },
-      { id: 'deliv_5', name: 'anchor_text_analysis.xlsx', size: '540 KB', url: '#', uploadedAt: '2026-10-08 04:32 PM' }
-    ],
-    adminNotes: 'Work delivered on time. 3-day buyer review timer active before auto-completion.',
-    isMuted: false,
-    escrowProtectionStartDate: '2026-10-07',
-    escrowProtectionEndDate: '2026-10-21'
-  },
-  {
-    id: 'ord_comp_1',
-    title: 'I will seo backlinks high da authority link building service for google ranking',
-    buyerId: 'user_2',
-    sellerId: 'user_1',
-    gigId: 'gig_1',
-    sellerUsername: 'jacob_m',
-    gigSlug: 'i-will-seo-backlinks-high-da-authority-link-building-service-for-google-ranking',
-    serviceUrl: '/jacob_m/i-will-seo-backlinks-high-da-authority-link-building-service-for-google-ranking',
-    serviceTitle: 'I will seo backlinks high da authority link building service for google ranking',
-    amount: 450,
-    status: 'completed',
-    createdAt: '2026-09-25',
-    dueDate: '2026-10-02',
-    requirements: 'Contextual backlinks on DA 70+ technology blogs.',
-    deliverables: 'PDF verification report and high-ranking backlinks.',
-    deliverableFiles: [
-      { id: 'deliv_6', name: 'final_seo_delivery_da70.pdf', size: '3.1 MB', url: '#', uploadedAt: '2026-10-01 10:00 AM' }
-    ],
-    adminNotes: 'Successfully completed. Buyer left 5-star positive review.',
-    isMuted: false,
-    escrowProtectionStartDate: '2026-09-25',
-    escrowProtectionEndDate: '2026-10-09'
-  },
-  {
-    id: 'ord_rev_1',
-    title: 'Modern Minimalist Logo & Brand Identity System',
-    buyerId: 'user_2',
-    sellerId: 'user_1',
-    gigId: 'gig_3',
-    sellerUsername: 'elena_rostova',
-    buyerUsername: 'marcus_vance',
-    gigSlug: 'modern-minimalist-logo-and-brand-identity-system',
-    serviceUrl: '/elena_rostova/modern-minimalist-logo-and-brand-identity-system',
-    serviceTitle: 'Modern Minimalist Logo & Brand Identity System',
-    serviceThumbnail: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=500&fit=crop',
-    amount: 620,
-    status: 'revision',
-    createdAt: '2026-10-04',
-    dueDate: '2026-10-16',
-    requirements: 'Complete vector brand identity, typography scale, monochrome icons, and Figma component system.',
-    deliverables: 'Figma source file (.fig) and high-resolution exported SVG/PNG assets.',
-    deliverableFiles: [
-      { id: 'deliv_rev_1', name: 'brand_identity_v1_draft.fig', size: '28.4 MB', url: '#', uploadedAt: '2026-10-06 05:10 PM' },
-      { id: 'deliv_rev_2', name: 'logo_presentation_deck.pdf', size: '4.6 MB', url: '#', uploadedAt: '2026-10-06 05:12 PM' }
-    ],
-    revisions: [
-      { id: 'rev_req_1', requestedAt: '2026-10-07 02:45 PM', reason: 'Please provide high contrast monochrome variant and refine primary mark curvature.', status: 'in_progress' }
-    ],
-    adminNotes: 'Buyer requested monochrome mark variation. Freelancer confirmed re-submission within 24h.',
-    isMuted: false,
-    escrowProtectionStartDate: '2026-10-04',
-    escrowProtectionEndDate: '2026-10-18'
-  },
-  {
-    id: 'ord_canc_1',
-    title: 'Custom Shopify Dropshipping Store Setup & Integration',
-    buyerId: 'user_2',
-    sellerId: 'user_3',
-    gigId: 'gig_2',
-    sellerUsername: 'bushra',
-    buyerUsername: 'marcus_vance',
-    gigSlug: 'custom-shopify-dropshipping-store-setup',
-    serviceUrl: '/bushra/custom-shopify-dropshipping-store-setup',
-    serviceTitle: 'Custom Shopify Dropshipping Store Setup & Integration',
-    serviceThumbnail: 'https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=800&h=500&fit=crop',
-    amount: 800,
-    status: 'cancelled',
-    createdAt: '2026-09-20',
-    dueDate: '2026-09-28',
-    requirements: 'Turnkey Shopify store configuration with custom liquid theme and payment gateway setup.',
-    deliverables: 'Shopify collaborator access transfer and configured store.',
-    deliverableFiles: [],
-    adminNotes: 'Order cancelled by mutual agreement following client pivot. $800 fully refunded to buyer wallet.',
-    isMuted: false,
-    escrowProtectionStartDate: '2026-09-20',
-    escrowProtectionEndDate: '2026-10-04'
-  },
-  {
-    id: 'ord_late_1',
-    title: 'AI Voice Agent with Realtime Telephony & Webhook Bridge',
-    buyerId: 'user_2',
-    sellerId: 'user_1',
-    gigId: 'gig_3',
-    sellerUsername: 'elena_rostova',
-    buyerUsername: 'marcus_vance',
-    gigSlug: 'ai-voice-agent-with-realtime-telephony',
-    serviceUrl: '/elena_rostova/ai-voice-agent-with-realtime-telephony',
-    serviceTitle: 'AI Voice Agent with Realtime Telephony & Webhook Bridge',
-    serviceThumbnail: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop',
-    amount: 1250,
-    status: 'in_progress',
-    createdAt: '2026-09-26',
-    dueDate: '2026-10-03',
-    requirements: 'Real-time Twilio voice bridge connecting speech-to-speech AI pipeline with low latency.',
-    deliverables: 'Deployed AWS Lambda endpoint + Git repository + environment setup instructions.',
-    deliverableFiles: [
-      { id: 'deliv_late_1', name: 'telephony_architecture_spec.pdf', size: '1.8 MB', url: '#', uploadedAt: '2026-09-29 10:15 AM' }
-    ],
-    adminNotes: 'Order is overdue. Freelancer requested extra time due to Twilio carrier registration wait. Admin intervention recommended.',
-    isMuted: false,
-    isTimerPaused: false,
-    escrowProtectionStartDate: '2026-09-26',
-    escrowProtectionEndDate: '2026-10-10'
+    createdAt: '2026-01-01',
+    dueDate: '2026-01-10',
+    requirements: 'Initial scope agreed via workstream.'
   }
 ];
 
-let disputes: Dispute[] = [
-  {
-    id: 'disp_1',
-    orderId: 'ord_1',
-    raisedBy: 'user_2',
-    reason: 'Deliverable delay and missing dark mode toggle requirement.',
-    evidence: 'Screenshot of dashboard preview missing dark theme switch.',
-    status: 'under_investigation',
-    createdAt: '2026-10-07',
-    assignedTo: 'user_admin'
-  }
-];
-
-let refunds: Refund[] = [
-  {
-    id: 'ref_1',
-    orderId: 'ord_1',
-    buyerId: 'user_2',
-    amount: 250,
-    reason: 'Partial refund requested due to reduced scope.',
-    status: 'pending',
-    createdAt: '2026-10-07'
-  }
-];
-
-let payouts: Payout[] = [
-  {
-    id: 'pay_1',
-    freelancerId: 'user_1',
-    amount: 1500,
-    method: 'UPI',
-    status: 'processed',
-    createdAt: '2026-10-04',
-    accountDetails: 'elena@upi'
-  }
-];
+let projects: Project[] = [];
+let proposals: Proposal[] = [];
+let disputes: Dispute[] = [];
+let refunds: Refund[] = [];
+let payouts: Payout[] = [];
 
 let categories: Category[] = [
   {
@@ -1554,96 +1208,13 @@ let categories: Category[] = [
   }
 ];
 
-let reviews: Review[] = [
-  {
-    id: 'rev_1',
-    orderId: 'ord_1',
-    reviewerName: 'Marcus Vance',
-    reviewerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-    targetUserId: 'user_1',
-    rating: 5,
-    comment: 'Exceptional work! Elena delivered clean React code ahead of schedule.',
-    createdAt: '2026-10-06'
-  }
-];
+let reviews: Review[] = [];
 
-let supportTickets: SupportTicket[] = [
-  {
-    id: 'tick_1',
-    userId: 'user_1',
-    userName: 'Elena Rostova',
-    subject: 'Question regarding withdrawal payout fees',
-    priority: 'medium',
-    status: 'open',
-    createdAt: '2026-10-07',
-    messages: [
-      { sender: 'Elena Rostova', text: 'Hi support team, what is the fee rate for UPI payouts?', timestamp: '11:20 AM' }
-    ]
-  }
-];
+let supportTickets: SupportTicket[] = [];
 
-let auditLogs: AuditLog[] = [
-  {
-    id: 'log_1',
-    actor: 'Admin Chief',
-    role: 'super_admin',
-    action: 'FORCE_ESCROW_RELEASE',
-    target: 'Order #ord_1',
-    details: 'Released $950 escrow to Elena Rostova after milestone sign-off.',
-    timestamp: '2026-10-08 02:15 AM'
-  }
-];
+let auditLogs: AuditLog[] = [];
 
-let messages: Message[] = [
-  {
-    id: 'msg_1',
-    orderId: 'ord_1',
-    senderId: 'user_2',
-    senderName: 'Marcus Vance',
-    text: 'Hi Elena, excited to get started! Funds secured in escrow.',
-    timestamp: '10:30 AM'
-  },
-  {
-    id: 'msg_2',
-    orderId: 'ord_1',
-    senderId: 'user_1',
-    senderName: 'Elena Rostova',
-    text: 'Thanks Marcus! Initial architecture and UI wireframes are ready.',
-    timestamp: '10:35 AM'
-  },
-  {
-    id: 'msg_3',
-    orderId: 'ord_bk',
-    senderId: 'user_2',
-    senderName: 'Marcus Vance',
-    text: 'Hi Broadcast King! Looking forward to the puppet explainer video preview.',
-    timestamp: '02:15 PM'
-  },
-  {
-    id: 'msg_4',
-    orderId: 'ord_bk',
-    senderId: 'user_bk',
-    senderName: 'Broadcast King',
-    text: 'Hello Marcus! Character rigging is complete and voiceover is recorded.',
-    timestamp: '02:20 PM'
-  },
-  {
-    id: 'msg_5',
-    orderId: 'ord_bushra',
-    senderId: 'user_2',
-    senderName: 'Marcus Vance',
-    text: 'Hi Bushra, checking in on the SEO DR 70 backlinks report.',
-    timestamp: '04:10 PM'
-  },
-  {
-    id: 'msg_6',
-    orderId: 'ord_bushra',
-    senderId: 'user_3',
-    senderName: 'BUSHRA',
-    text: 'Hello Marcus! Backlink indexing is underway, sending the initial Ahrefs report shortly.',
-    timestamp: '04:15 PM'
-  }
-];
+let messages: Message[] = [];
 
 function enrichOrderWithServiceInfo(o: Order, isAdmin: boolean = false) {
   const gig = (o.gigId ? gigs.find(g => g.id === o.gigId) : undefined) ||
@@ -3837,7 +3408,9 @@ app.post('/api/messages', requireAuth, (req, res) => {
     senderId: caller.id,
     senderName: caller.name,
     text: req.body.text,
-    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    type: req.body.type || 'message',
+    fileInfo: req.body.fileInfo
   };
   messages.push(newMsg);
   broadcastMessage(newMsg, order.id);
@@ -4653,13 +4226,15 @@ function setupWebSocketHandlers(ws: WebSocket) {
           return;
         }
 
-        // Validate text content
-        const text = parsed.text;
-        if (typeof text !== 'string' || text.trim().length === 0) {
+        // Validate text content (optional if file or system)
+        const text = parsed.text || '';
+        const msgType = parsed.msgType || 'message';
+        
+        if (msgType === 'message' && (!text || typeof text !== 'string' || text.trim().length === 0)) {
           ws.send(JSON.stringify({ error: 'Message text cannot be empty' }));
           return;
         }
-        if (text.length > 2000) {
+        if (text && text.length > 2000) {
           ws.send(JSON.stringify({ error: 'Message text is too long (max 2000 characters)' }));
           return;
         }
@@ -4671,7 +4246,9 @@ function setupWebSocketHandlers(ws: WebSocket) {
           senderId: user.id,
           senderName: user.name,
           text: text.trim(),
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          type: msgType,
+          fileInfo: parsed.fileInfo
         };
         messages.push(newMsg);
 

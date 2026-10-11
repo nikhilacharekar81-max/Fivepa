@@ -4,6 +4,20 @@ export interface GigExtra {
   price: number;
 }
 
+export interface Review {
+  id: string;
+  buyerName?: string;
+  userName?: string;
+  avatar?: string;
+  userAvatar?: string;
+  rating: number;
+  comment?: string;
+  review?: string;
+  timeAgo?: string;
+  gigTitle?: string;
+  gigId?: string;
+}
+
 export interface Gig {
   id: string;
   freelancerId: string;

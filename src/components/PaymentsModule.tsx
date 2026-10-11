@@ -593,19 +593,19 @@ export const PaymentsModule: React.FC<PaymentsModuleProps> = ({
       onClick={onClick}
     >
       <div className="flex items-center justify-between mb-1">
-        <h3 className="text-lg font-bold text-slate-800">{title}</h3>
+        <h3 className="text-xl font-bold text-fiverr-dark">{title}</h3>
         {badge && (
           <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
             {badge}
           </span>
         )}
       </div>
-      <p className="text-xs text-slate-500 mb-4">{desc}</p>
+      <p className="text-xs font-normal text-fiverr-muted mb-4">{desc}</p>
       
       <div className="pt-2 border-t border-slate-100 flex items-end justify-between">
         <div>
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wider block">Balance</span>
-          <span className="text-2xl font-extrabold text-slate-900">{formatMoney(amount)}</span>
+          <span className="text-xs font-normal text-fiverr-muted uppercase tracking-wider block">Balance</span>
+          <span className="text-2xl font-bold text-fiverr-dark">{formatMoney(amount)}</span>
         </div>
         {onClick && (
           <span className="text-xs font-bold text-emerald-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
@@ -637,12 +637,12 @@ export const PaymentsModule: React.FC<PaymentsModuleProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Payments & Escrow</h1>
+            <h1 className="text-3xl font-bold text-fiverr-dark tracking-tight">Payments & Escrow</h1>
             <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">
               Live & Secure
             </span>
           </div>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm font-normal text-fiverr-muted mt-1">
             Manage your wallet balances, track protected escrow funds, invoices, statements, and payouts.
           </p>
         </div>
@@ -751,7 +751,7 @@ export const PaymentsModule: React.FC<PaymentsModuleProps> = ({
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
-                      <h4 className="text-base font-bold text-slate-800">User Account Available Funds</h4>
+                      <h4 className="text-xl font-bold text-fiverr-dark">User Account Available Funds</h4>
                       <p className="text-xs text-slate-500">Breakdown of withdrawable cash across supported currencies</p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -805,7 +805,7 @@ export const PaymentsModule: React.FC<PaymentsModuleProps> = ({
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
-                      <h4 className="text-base font-bold text-slate-800">Buyer Escrow Vault (Work Others Are Doing For You)</h4>
+                      <h4 className="text-xl font-bold text-fiverr-dark">Buyer Escrow Vault (Work Others Are Doing For You)</h4>
                       <p className="text-xs text-slate-500">
                         Funds held under 14-day Escrow Protection. Release when satisfied with deliverable.
                       </p>
@@ -905,7 +905,7 @@ export const PaymentsModule: React.FC<PaymentsModuleProps> = ({
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
-                      <h4 className="text-base font-bold text-slate-800">Freelancer Escrow (Work You Are Delivering)</h4>
+                      <h4 className="text-xl font-bold text-fiverr-dark">Freelancer Escrow (Work You Are Delivering)</h4>
                       <p className="text-xs text-slate-500">
                         Funds deposited by clients, awaiting completion or milestone signoff.
                       </p>
